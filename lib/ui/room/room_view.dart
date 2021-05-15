@@ -42,6 +42,13 @@ class RoomView extends HookWidget {
                     }
                     return null;
                   },
+                  onFieldSubmitted: (id) {
+                    if (id.length != 0) {
+                      if (_formKey.currentState!.validate()) {
+                        controller.createRoom(context);
+                      }
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 16,
