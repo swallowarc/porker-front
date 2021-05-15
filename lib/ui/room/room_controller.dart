@@ -46,11 +46,7 @@ class RoomController extends StateNotifier<RoomControllerState> {
 
     final valid = await _porkerSvc.enterRoomReservation(loginID, roomIDController.text);
     if (!valid) {
-<<<<<<< HEAD
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ルームIDのが無効、または満室です')));
-=======
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ルームIDが無効 または満室です')));
->>>>>>> b1718ae (implement)
       return;
     }
 
