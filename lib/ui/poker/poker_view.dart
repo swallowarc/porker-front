@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -98,11 +100,12 @@ class _SelectableCards extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useProvider(_controllerProvider.notifier);
 
+    var i = 0;
     final List<Widget> cards = _selectablePoints
         .map(
           (e) => Expanded(
             child: Container(
-              child: PokerCard(() => controller.voting(context, e), e, true),
+              child: PokerCard(() => controller.voting(context, e), e, true, i++),
               height: 100,
             ),
           ),
@@ -136,7 +139,8 @@ class _FieldCards extends HookWidget {
                 Container(
                   height: 150,
                   width: 120,
-                  child: PokerCard(() => {}, e.point, state.roomState == RoomState.ROOM_STATE_OPEN),
+                  child: PokerCard(() => {}, e.point, state.roomState == RoomState.ROOM_STATE_OPEN,
+                      Random(this.hashCode).nextInt(5)),
                 ),
                 Text(e.loginId),
               ],

@@ -38,8 +38,9 @@ class PokerCard extends StatefulWidget {
   final Function() _callback;
   final Point _point;
   final bool _isOpen;
+  final int _delai;
 
-  PokerCard(this._callback, this._point, this._isOpen);
+  PokerCard(this._callback, this._point, this._isOpen, this._delai);
 
   @override
   _PokerCardState createState() => _PokerCardState();
@@ -65,7 +66,7 @@ class _PokerCardState extends State<PokerCard> with TickerProviderStateMixin {
     }
 
     final card = CustomAnimation<double>(
-      delay: Random(widget.hashCode).nextInt(300).milliseconds,
+      delay: (widget._delai * 80).milliseconds,
       control: control,
       tween: (2.0).tweenTo(1.0),
       duration: 300.milliseconds,
