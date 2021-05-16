@@ -3,7 +3,7 @@ import 'package:porker_front/ui/login/login_view.dart';
 import 'package:porker_front/ui/poker/poker_view.dart';
 import 'package:porker_front/ui/room/room_view.dart';
 
-typedef PathWidgetBuilder = Widget Function(BuildContext, String?);
+typedef PathWidgetBuilder = Widget Function(BuildContext, Map<String, String>);
 
 class Path {
   const Path(this.pattern, this.builder);
@@ -15,26 +15,29 @@ class Path {
 
 class RouteConfiguration {
   static List<Path> paths = [
-    Path("/", (context, match) => LoginView()),
-    Path("/room", (context, match) => RoomView()),
-    Path("/poker", (context, match) => PokerView())
+    Path("/", (context, queryParameters) => LoginView(context, queryParameters)),
+    Path("/room", (context, queryParameters) => RoomView(context, queryParameters)),
+    Path("/poker", (context, queryParameters) => PokerView(context, queryParameters))
   ];
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    for (final path in paths) {
-      final regExpPattern = RegExp(path.pattern);
+    final pathStrings = settings.name!.split('?');
+    Map<String, String> queryParameters;
+    if (pathStrings.length > 1) {
+      queryParameters = Uri.splitQueryString(pathStrings[1]);
+    } else {
+      queryParameters = {};
+    }
 
-      if (path.pattern == settings.name) {
-        final firstMatch = regExpPattern.firstMatch(settings.name!);
-        final match = (firstMatch!.groupCount == 1) ? firstMatch.group(1) : null;
+    for (final path in paths) {
+      if (pathStrings[0] == path.pattern) {
         return AnimationMaterialPageRoute<void>(
-          builder: (context) => path.builder(context, match),
+          builder: (context) => path.builder(context, queryParameters),
           settings: settings,
         );
       }
     }
 
-    // If no match was found, we let [WidgetsApp.onUnknownRoute] handle it.
     return null;
   }
 }

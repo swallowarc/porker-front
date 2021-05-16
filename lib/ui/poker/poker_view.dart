@@ -28,12 +28,15 @@ final StateNotifierProvider<PokerController, PokerControllerState> _controllerPr
     (ref) => PokerController(ref.read(porkerServiceProvider.notifier), ref.read(loginServiceProvider.notifier)));
 
 class PokerView extends HookWidget {
+  PokerView(BuildContext context, Map<String, String> queryParameters) {
+    final controller = context.read(_controllerProvider.notifier);
+    controller.subscribe(context, queryParameters["room_id"]);
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = useProvider(_controllerProvider.notifier);
     final state = useProvider(_controllerProvider);
-
-    controller.subscribe();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

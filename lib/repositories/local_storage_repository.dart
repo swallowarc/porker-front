@@ -21,18 +21,6 @@ class LocalStorageRepository {
     _localStorage.putMap(_storageKeyLoginStatus, status.toJson());
   }
 
-  Future<String> getEnterRoomID() async {
-    final list = await _localStorage.getList(_storageKeyRoomID);
-    if (list.length == 0) {
-      return "";
-    }
-    return list[0];
-  }
-
-  Future<void> saveEnterRoomID(String roomID) async {
-    await _localStorage.putList(_storageKeyRoomID, [roomID]);
-  }
-
   Future<void> deleteEnterRoomID() async {
     await _localStorage.delete(_storageKeyRoomID);
   }

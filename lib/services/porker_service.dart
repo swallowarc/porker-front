@@ -20,35 +20,16 @@ class PorkerService extends StateNotifier<PokerSituation> {
         _storageRepo = storageRepo,
         super(PokerSituation(state: RoomState.ROOM_STATE_TURN_DOWN));
 
-  Future<bool> createRoom(String loginID) async {
+  Future<String?> createRoom(String loginID) async {
     roomID = await _svcRepo.createRoom(loginID);
     if (roomID == null) {
-      return false;
+      return null;
     }
 
-    final valid = await enterRoomReservation(loginID, roomID);
-    if (!valid) {
-      return false;
-    }
-
-    return true;
-  }
-
-  Future<bool> enterRoomReservation(String loginID, roomID) async {
-    final canEnterRoom = await _svcRepo.canEnterRoom(loginID, roomID);
-    if (!canEnterRoom) {
-      return false;
-    }
-
-    await _storageRepo.saveEnterRoomID(roomID);
-
-    return true;
-  }
-
-  Future<String> reservationRoomID() async {
-    final roomID = await _storageRepo.getEnterRoomID();
     return roomID;
   }
+
+  Future<bool> canEnterRoom(String loginID, roomID) async => await _svcRepo.canEnterRoom(loginID, roomID);
 
   Future<bool> enterRoom(String loginID, roomID) async {
     if (_status && this.roomID == roomID) {

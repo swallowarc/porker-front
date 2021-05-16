@@ -5,6 +5,7 @@ import 'package:porker/porker.dart';
 import 'package:porker_front/commons/logger/logger.dart';
 import 'package:porker_front/services/login_service.dart';
 import 'package:porker_front/services/porker_service.dart';
+import 'package:sprintf/sprintf.dart';
 
 part 'poker_controller.freezed.dart';
 
@@ -35,11 +36,19 @@ class PokerController extends StateNotifier<PokerControllerState> {
           ),
         );
 
-  Future<void> subscribe() async {
+  Future<void> subscribe(BuildContext context, String? roomID) async {
     final loginID = await _loginSvc.loginID();
-    final roomID = await _porkerSvc.reservationRoomID();
+    if (loginID == null) {
+      Navigator.of(context).pushNamedAndRemoveUntil(sprintf("/?room_id=%s", [roomID]), (_) => false);
+      return;
+    }
 
-    final isNewConnection = await _porkerSvc.enterRoom(loginID!, roomID);
+    if (roomID == null || !await _porkerSvc.canEnterRoom(loginID, roomID)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('有効なRoomIDが指定されていません')));
+      Navigator.of(context).pushNamedAndRemoveUntil("/room", (_) => false);
+    }
+
+    final isNewConnection = await _porkerSvc.enterRoom(loginID, roomID);
     if (!isNewConnection) {
       return;
     }

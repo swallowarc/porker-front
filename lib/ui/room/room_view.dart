@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:porker_front/providers.dart';
 import 'package:porker_front/ui/room/room_controller.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final StateNotifierProvider<RoomController, RoomControllerState> _controllerProvider = StateNotifierProvider(
     (ref) => RoomController(ref.read(porkerServiceProvider.notifier), ref.read(loginServiceProvider.notifier)));
 
 class RoomView extends HookWidget {
   final _formKey = GlobalKey<FormState>();
+
+  RoomView(BuildContext context, Map<String, String> queryParameters){
+    final roomID = queryParameters["room_id"] ?? "";
+    final controller = context.read(_controllerProvider.notifier);
+    controller.roomID = roomID;
+  }
 
   @override
   Widget build(BuildContext context) {

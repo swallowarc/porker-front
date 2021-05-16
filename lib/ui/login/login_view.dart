@@ -10,6 +10,12 @@ final StateNotifierProvider<LoginController, LoginControllerState> _controllerPr
 class LoginView extends HookWidget {
   final _formKey = GlobalKey<FormState>();
 
+  LoginView(BuildContext context, Map<String, String> queryParameters) {
+    final roomID = queryParameters["room_id"] ?? "";
+    final controller = context.read(_controllerProvider.notifier);
+    controller.roomID = roomID;
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = useProvider(_controllerProvider.notifier);

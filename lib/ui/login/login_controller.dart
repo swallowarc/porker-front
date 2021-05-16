@@ -3,12 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:porker_front/services/login_service.dart';
+import 'package:sprintf/sprintf.dart';
 
 part 'login_controller.freezed.dart';
 
 @freezed
 class LoginControllerState with _$LoginControllerState {
-  const factory LoginControllerState() = _LoginControllerState;
+  const factory LoginControllerState(
+    String? roomID,
+  ) = _LoginControllerState;
 }
 
 class LoginController extends StateNotifier<LoginControllerState> {
@@ -17,7 +20,11 @@ class LoginController extends StateNotifier<LoginControllerState> {
 
   LoginController(LoginService login)
       : _login = login,
-        super(LoginControllerState());
+        super(LoginControllerState(""));
+
+  set roomID(String roomID) {
+    state = state.copyWith(roomID: roomID);
+  }
 
   Future<void> setPreviousLoginID() async {
     final status = await _login.previousLogin();
@@ -30,7 +37,12 @@ class LoginController extends StateNotifier<LoginControllerState> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
       return;
     }
-    Navigator.of(context).pushNamedAndRemoveUntil("/room", (_) => false);
+
+    if (state.roomID == "") {
+      Navigator.of(context).pushNamedAndRemoveUntil("/room", (_) => false);
+      return;
+    }
+    Navigator.of(context).pushNamedAndRemoveUntil(sprintf("/room?room_id=%s", [state.roomID]), (_) => false);
   }
 
   @override

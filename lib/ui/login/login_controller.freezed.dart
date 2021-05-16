@@ -16,8 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginControllerStateTearOff {
   const _$LoginControllerStateTearOff();
 
-  _LoginControllerState call() {
-    return const _LoginControllerState();
+  _LoginControllerState call(String? roomID) {
+    return _LoginControllerState(
+      roomID,
+    );
   }
 }
 
@@ -25,13 +27,20 @@ class _$LoginControllerStateTearOff {
 const $LoginControllerState = _$LoginControllerStateTearOff();
 
 /// @nodoc
-mixin _$LoginControllerState {}
+mixin _$LoginControllerState {
+  String? get roomID => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LoginControllerStateCopyWith<LoginControllerState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
 
 /// @nodoc
 abstract class $LoginControllerStateCopyWith<$Res> {
   factory $LoginControllerStateCopyWith(LoginControllerState value,
           $Res Function(LoginControllerState) then) =
       _$LoginControllerStateCopyWithImpl<$Res>;
+  $Res call({String? roomID});
 }
 
 /// @nodoc
@@ -42,13 +51,28 @@ class _$LoginControllerStateCopyWithImpl<$Res>
   final LoginControllerState _value;
   // ignore: unused_field
   final $Res Function(LoginControllerState) _then;
+
+  @override
+  $Res call({
+    Object? roomID = freezed,
+  }) {
+    return _then(_value.copyWith(
+      roomID: roomID == freezed
+          ? _value.roomID
+          : roomID // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$LoginControllerStateCopyWith<$Res> {
+abstract class _$LoginControllerStateCopyWith<$Res>
+    implements $LoginControllerStateCopyWith<$Res> {
   factory _$LoginControllerStateCopyWith(_LoginControllerState value,
           $Res Function(_LoginControllerState) then) =
       __$LoginControllerStateCopyWithImpl<$Res>;
+  @override
+  $Res call({String? roomID});
 }
 
 /// @nodoc
@@ -61,27 +85,59 @@ class __$LoginControllerStateCopyWithImpl<$Res>
 
   @override
   _LoginControllerState get _value => super._value as _LoginControllerState;
+
+  @override
+  $Res call({
+    Object? roomID = freezed,
+  }) {
+    return _then(_LoginControllerState(
+      roomID == freezed
+          ? _value.roomID
+          : roomID // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_LoginControllerState implements _LoginControllerState {
-  const _$_LoginControllerState();
+  const _$_LoginControllerState(this.roomID);
+
+  @override
+  final String? roomID;
 
   @override
   String toString() {
-    return 'LoginControllerState()';
+    return 'LoginControllerState(roomID: $roomID)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _LoginControllerState);
+    return identical(this, other) ||
+        (other is _LoginControllerState &&
+            (identical(other.roomID, roomID) ||
+                const DeepCollectionEquality().equals(other.roomID, roomID)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(roomID);
+
+  @JsonKey(ignore: true)
+  @override
+  _$LoginControllerStateCopyWith<_LoginControllerState> get copyWith =>
+      __$LoginControllerStateCopyWithImpl<_LoginControllerState>(
+          this, _$identity);
 }
 
 abstract class _LoginControllerState implements LoginControllerState {
-  const factory _LoginControllerState() = _$_LoginControllerState;
+  const factory _LoginControllerState(String? roomID) = _$_LoginControllerState;
+
+  @override
+  String? get roomID => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$LoginControllerStateCopyWith<_LoginControllerState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
