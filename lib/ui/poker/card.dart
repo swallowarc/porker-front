@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:porker/porker.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:sprintf/sprintf.dart';
 import 'package:supercharged/supercharged.dart';
 
 const Map<Point, String> _DisplayPoint = {
@@ -34,13 +35,26 @@ final Map<Point, Color> _displayColors = {
   Point.POINT_QUESTION: Colors.yellow.shade200,
 };
 
+final List<Color> _cardColors = [
+  Colors.red.shade300,
+  Colors.green.shade300,
+  Colors.blue.shade300,
+  Colors.yellow.shade300,
+  Colors.orange.shade300,
+  Colors.purple.shade300,
+  Colors.white70,
+  Colors.indigoAccent.shade100,
+  Colors.pinkAccent.shade100,
+];
+
 class PokerCard extends StatefulWidget {
   final Function() _callback;
   final Point _point;
   final bool _isOpen;
   final int _delay;
+  final String _loginID;
 
-  PokerCard(this._callback, this._point, this._isOpen, this._delay);
+  PokerCard(this._callback, this._point, this._isOpen, this._delay, this._loginID);
 
   @override
   _PokerCardState createState() => _PokerCardState();
@@ -65,6 +79,7 @@ class _PokerCardState extends State<PokerCard> with TickerProviderStateMixin {
       );
     }
 
+    final int colorID = widget._loginID.hashCode % _cardColors.length;
     final card = CustomAnimation<double>(
       delay: (widget._delay).milliseconds,
       control: control,
@@ -83,7 +98,7 @@ class _PokerCardState extends State<PokerCard> with TickerProviderStateMixin {
       child: Container(
         child: Card(
           child: _cardImage(),
-          color: widget._isOpen ? _displayColors[widget._point] : Colors.pinkAccent,
+          color: widget._isOpen ? _displayColors[widget._point] : _cardColors[colorID],
         ),
         decoration: BoxDecoration(
           boxShadow: [
@@ -109,11 +124,12 @@ class _PokerCardState extends State<PokerCard> with TickerProviderStateMixin {
 
   Widget? _cardImage() {
     if (!widget._isOpen) {
+      final int imageID = widget._loginID.hashCode % 11;
       return Container(
         child: ClipRRect(
           child: Image(
             fit: BoxFit.scaleDown,
-            image: AssetImage("images/card.png"),
+            image: AssetImage(sprintf("images/card-%02d.png", [imageID])),
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
