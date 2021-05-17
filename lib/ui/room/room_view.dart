@@ -51,7 +51,7 @@ class RoomView extends HookWidget {
                   onFieldSubmitted: (id) {
                     if (id.length != 0) {
                       if (_formKey.currentState!.validate()) {
-                        controller.createRoom(context);
+                        controller.enterRoom(context);
                       }
                     }
                   },
