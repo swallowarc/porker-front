@@ -108,7 +108,8 @@ class _SelectableCards extends HookWidget {
         .map(
           (e) => Expanded(
             child: Container(
-              child: PokerCard(() => controller.voting(context, e), e, true, 80 * i++, ""),
+              child: PokerCard(
+                  () => controller.voting(context, e), e, true, 80 * i++, "", e == controller.selectedPoint()),
               height: 100,
             ),
           ),
@@ -143,7 +144,7 @@ class _FieldCards extends HookWidget {
                   height: 150,
                   width: 120,
                   child: PokerCard(() => {}, e.point, state.roomState == RoomState.ROOM_STATE_OPEN,
-                      Random(this.hashCode).nextInt(500), e.loginId),
+                      Random(this.hashCode).nextInt(500), e.loginId, false),
                 ),
                 Text(e.loginId),
               ],

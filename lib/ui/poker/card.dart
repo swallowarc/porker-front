@@ -53,8 +53,9 @@ class PokerCard extends StatefulWidget {
   final bool _isOpen;
   final int _delay;
   final String _loginID;
+  final bool _isSelected;
 
-  PokerCard(this._callback, this._point, this._isOpen, this._delay, this._loginID);
+  PokerCard(this._callback, this._point, this._isOpen, this._delay, this._loginID, this._isSelected);
 
   @override
   _PokerCardState createState() => _PokerCardState();
@@ -99,6 +100,12 @@ class _PokerCardState extends State<PokerCard> with TickerProviderStateMixin {
         child: Card(
           child: _cardImage(),
           color: widget._isOpen ? _displayColors[widget._point] : _cardColors[colorID],
+          shape: widget._isSelected
+              ? RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.pink, width: 5),
+                  borderRadius: BorderRadius.circular(5),
+                )
+              : null,
         ),
         decoration: BoxDecoration(
           boxShadow: [

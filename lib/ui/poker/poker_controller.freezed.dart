@@ -20,12 +20,14 @@ class _$PokerControllerStateTearOff {
       {required String roomID,
       required String masterLoginID,
       required RoomState roomState,
-      required List<Ballot> ballots}) {
+      required List<Ballot> ballots,
+      required String loginID}) {
     return _PokerControllerState(
       roomID: roomID,
       masterLoginID: masterLoginID,
       roomState: roomState,
       ballots: ballots,
+      loginID: loginID,
     );
   }
 }
@@ -39,6 +41,7 @@ mixin _$PokerControllerState {
   String get masterLoginID => throw _privateConstructorUsedError;
   RoomState get roomState => throw _privateConstructorUsedError;
   List<Ballot> get ballots => throw _privateConstructorUsedError;
+  String get loginID => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokerControllerStateCopyWith<PokerControllerState> get copyWith =>
@@ -54,7 +57,8 @@ abstract class $PokerControllerStateCopyWith<$Res> {
       {String roomID,
       String masterLoginID,
       RoomState roomState,
-      List<Ballot> ballots});
+      List<Ballot> ballots,
+      String loginID});
 }
 
 /// @nodoc
@@ -72,6 +76,7 @@ class _$PokerControllerStateCopyWithImpl<$Res>
     Object? masterLoginID = freezed,
     Object? roomState = freezed,
     Object? ballots = freezed,
+    Object? loginID = freezed,
   }) {
     return _then(_value.copyWith(
       roomID: roomID == freezed
@@ -90,6 +95,10 @@ class _$PokerControllerStateCopyWithImpl<$Res>
           ? _value.ballots
           : ballots // ignore: cast_nullable_to_non_nullable
               as List<Ballot>,
+      loginID: loginID == freezed
+          ? _value.loginID
+          : loginID // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -105,7 +114,8 @@ abstract class _$PokerControllerStateCopyWith<$Res>
       {String roomID,
       String masterLoginID,
       RoomState roomState,
-      List<Ballot> ballots});
+      List<Ballot> ballots,
+      String loginID});
 }
 
 /// @nodoc
@@ -125,6 +135,7 @@ class __$PokerControllerStateCopyWithImpl<$Res>
     Object? masterLoginID = freezed,
     Object? roomState = freezed,
     Object? ballots = freezed,
+    Object? loginID = freezed,
   }) {
     return _then(_PokerControllerState(
       roomID: roomID == freezed
@@ -143,6 +154,10 @@ class __$PokerControllerStateCopyWithImpl<$Res>
           ? _value.ballots
           : ballots // ignore: cast_nullable_to_non_nullable
               as List<Ballot>,
+      loginID: loginID == freezed
+          ? _value.loginID
+          : loginID // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -154,7 +169,8 @@ class _$_PokerControllerState implements _PokerControllerState {
       {required this.roomID,
       required this.masterLoginID,
       required this.roomState,
-      required this.ballots});
+      required this.ballots,
+      required this.loginID});
 
   @override
   final String roomID;
@@ -164,10 +180,12 @@ class _$_PokerControllerState implements _PokerControllerState {
   final RoomState roomState;
   @override
   final List<Ballot> ballots;
+  @override
+  final String loginID;
 
   @override
   String toString() {
-    return 'PokerControllerState(roomID: $roomID, masterLoginID: $masterLoginID, roomState: $roomState, ballots: $ballots)';
+    return 'PokerControllerState(roomID: $roomID, masterLoginID: $masterLoginID, roomState: $roomState, ballots: $ballots, loginID: $loginID)';
   }
 
   @override
@@ -183,7 +201,10 @@ class _$_PokerControllerState implements _PokerControllerState {
                 const DeepCollectionEquality()
                     .equals(other.roomState, roomState)) &&
             (identical(other.ballots, ballots) ||
-                const DeepCollectionEquality().equals(other.ballots, ballots)));
+                const DeepCollectionEquality()
+                    .equals(other.ballots, ballots)) &&
+            (identical(other.loginID, loginID) ||
+                const DeepCollectionEquality().equals(other.loginID, loginID)));
   }
 
   @override
@@ -192,7 +213,8 @@ class _$_PokerControllerState implements _PokerControllerState {
       const DeepCollectionEquality().hash(roomID) ^
       const DeepCollectionEquality().hash(masterLoginID) ^
       const DeepCollectionEquality().hash(roomState) ^
-      const DeepCollectionEquality().hash(ballots);
+      const DeepCollectionEquality().hash(ballots) ^
+      const DeepCollectionEquality().hash(loginID);
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +228,8 @@ abstract class _PokerControllerState implements PokerControllerState {
       {required String roomID,
       required String masterLoginID,
       required RoomState roomState,
-      required List<Ballot> ballots}) = _$_PokerControllerState;
+      required List<Ballot> ballots,
+      required String loginID}) = _$_PokerControllerState;
 
   @override
   String get roomID => throw _privateConstructorUsedError;
@@ -216,6 +239,8 @@ abstract class _PokerControllerState implements PokerControllerState {
   RoomState get roomState => throw _privateConstructorUsedError;
   @override
   List<Ballot> get ballots => throw _privateConstructorUsedError;
+  @override
+  String get loginID => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokerControllerStateCopyWith<_PokerControllerState> get copyWith =>

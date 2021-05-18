@@ -16,6 +16,7 @@ class PokerControllerState with _$PokerControllerState {
     required String masterLoginID,
     required RoomState roomState,
     required List<Ballot> ballots,
+    required String loginID,
   }) = _PokerControllerState;
 }
 
@@ -33,6 +34,7 @@ class PokerController extends StateNotifier<PokerControllerState> {
             masterLoginID: "",
             roomState: RoomState.ROOM_STATE_TURN_DOWN,
             ballots: [],
+            loginID: "",
           ),
         );
 
@@ -59,8 +61,17 @@ class PokerController extends StateNotifier<PokerControllerState> {
         masterLoginID: poker.masterLoginId,
         roomState: poker.state,
         ballots: poker.ballots,
+        loginID: loginID,
       );
     });
+  }
+
+  Point selectedPoint() {
+    final ballot = state.ballots.where((e) => e.loginId == state.loginID).firstOrNull;
+    if (ballot == null) {
+      return Point.POINT_UNKNOWN;
+    }
+    return ballot.point;
   }
 
   Future<void> voting(BuildContext context, Point point) async {
