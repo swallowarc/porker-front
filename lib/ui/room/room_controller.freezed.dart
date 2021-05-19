@@ -16,10 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$RoomControllerStateTearOff {
   const _$RoomControllerStateTearOff();
 
-  _RoomControllerState call(String? roomID) {
-    return _RoomControllerState(
-      roomID,
-    );
+  _RoomControllerState call() {
+    return const _RoomControllerState();
   }
 }
 
@@ -27,20 +25,13 @@ class _$RoomControllerStateTearOff {
 const $RoomControllerState = _$RoomControllerStateTearOff();
 
 /// @nodoc
-mixin _$RoomControllerState {
-  String? get roomID => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $RoomControllerStateCopyWith<RoomControllerState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+mixin _$RoomControllerState {}
 
 /// @nodoc
 abstract class $RoomControllerStateCopyWith<$Res> {
   factory $RoomControllerStateCopyWith(
           RoomControllerState value, $Res Function(RoomControllerState) then) =
       _$RoomControllerStateCopyWithImpl<$Res>;
-  $Res call({String? roomID});
 }
 
 /// @nodoc
@@ -51,28 +42,13 @@ class _$RoomControllerStateCopyWithImpl<$Res>
   final RoomControllerState _value;
   // ignore: unused_field
   final $Res Function(RoomControllerState) _then;
-
-  @override
-  $Res call({
-    Object? roomID = freezed,
-  }) {
-    return _then(_value.copyWith(
-      roomID: roomID == freezed
-          ? _value.roomID
-          : roomID // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$RoomControllerStateCopyWith<$Res>
-    implements $RoomControllerStateCopyWith<$Res> {
+abstract class _$RoomControllerStateCopyWith<$Res> {
   factory _$RoomControllerStateCopyWith(_RoomControllerState value,
           $Res Function(_RoomControllerState) then) =
       __$RoomControllerStateCopyWithImpl<$Res>;
-  @override
-  $Res call({String? roomID});
 }
 
 /// @nodoc
@@ -85,59 +61,27 @@ class __$RoomControllerStateCopyWithImpl<$Res>
 
   @override
   _RoomControllerState get _value => super._value as _RoomControllerState;
-
-  @override
-  $Res call({
-    Object? roomID = freezed,
-  }) {
-    return _then(_RoomControllerState(
-      roomID == freezed
-          ? _value.roomID
-          : roomID // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_RoomControllerState implements _RoomControllerState {
-  const _$_RoomControllerState(this.roomID);
-
-  @override
-  final String? roomID;
+  const _$_RoomControllerState();
 
   @override
   String toString() {
-    return 'RoomControllerState(roomID: $roomID)';
+    return 'RoomControllerState()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _RoomControllerState &&
-            (identical(other.roomID, roomID) ||
-                const DeepCollectionEquality().equals(other.roomID, roomID)));
+    return identical(this, other) || (other is _RoomControllerState);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(roomID);
-
-  @JsonKey(ignore: true)
-  @override
-  _$RoomControllerStateCopyWith<_RoomControllerState> get copyWith =>
-      __$RoomControllerStateCopyWithImpl<_RoomControllerState>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 }
 
 abstract class _RoomControllerState implements RoomControllerState {
-  const factory _RoomControllerState(String? roomID) = _$_RoomControllerState;
-
-  @override
-  String? get roomID => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  _$RoomControllerStateCopyWith<_RoomControllerState> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _RoomControllerState() = _$_RoomControllerState;
 }

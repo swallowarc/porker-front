@@ -10,12 +10,6 @@ final StateNotifierProvider<RoomController, RoomControllerState> _controllerProv
 class RoomView extends HookWidget {
   final _formKey = GlobalKey<FormState>();
 
-  RoomView(BuildContext context, Map<String, String> queryParameters){
-    final roomID = queryParameters["room_id"] ?? "";
-    final controller = context.read(_controllerProvider.notifier);
-    controller.roomID = roomID;
-  }
-
   @override
   Widget build(BuildContext context) {
     final controller = useProvider(_controllerProvider.notifier);

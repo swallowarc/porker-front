@@ -42,7 +42,7 @@ class LoginController extends StateNotifier<LoginControllerState> {
       Navigator.of(context).pushNamedAndRemoveUntil("/room", (_) => false);
       return;
     }
-    Navigator.of(context).pushNamedAndRemoveUntil(sprintf("/room?room_id=%s", [state.roomID]), (_) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(sprintf("/poker?room_id=%s", [state.roomID]), (_) => false);
   }
 
   @override

@@ -16,7 +16,7 @@ class Path {
 class RouteConfiguration {
   static List<Path> paths = [
     Path("/", (context, queryParameters) => LoginView(context, queryParameters)),
-    Path("/room", (context, queryParameters) => RoomView(context, queryParameters)),
+    Path("/room", (context, queryParameters) => RoomView()),
     Path("/poker", (context, queryParameters) => PokerView(context, queryParameters))
   ];
 

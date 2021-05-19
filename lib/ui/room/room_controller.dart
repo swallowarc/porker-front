@@ -9,9 +9,7 @@ part 'room_controller.freezed.dart';
 
 @freezed
 class RoomControllerState with _$RoomControllerState {
-  const factory RoomControllerState(
-    String? roomID,
-  ) = _RoomControllerState;
+  const factory RoomControllerState() = _RoomControllerState;
 }
 
 class RoomController extends StateNotifier<RoomControllerState> {
@@ -22,7 +20,7 @@ class RoomController extends StateNotifier<RoomControllerState> {
   RoomController(PorkerService porker, LoginService login)
       : _porkerSvc = porker,
         _loginSvc = login,
-        super(RoomControllerState(""));
+        super(RoomControllerState());
 
   set roomID(String roomID) {
     roomIDController.value = TextEditingValue(text: roomID);
