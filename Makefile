@@ -7,7 +7,7 @@ REVISION := $(shell git rev-parse --short HEAD)
 BACKEND_URI ?= http://localhost:8080
 DOCKER_USER ?= fake_suer
 DOCKER_PASS ?= fake_pass
-DOCKER_REGISTRY = swallowarc/porker-front
+DOCKER_REGISTRY = core.harbor.swallowarc.work/porker/porker-front
 
 .PHONY: build/release build/flutter-builder generate test docker-login
 build/release:
@@ -27,4 +27,4 @@ test:
 	flutter test
 
 docker-login:
-	docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
+	docker login core.harbor.swallowarc.work -u $(DOCKER_USER) -p $(DOCKER_PASS)
