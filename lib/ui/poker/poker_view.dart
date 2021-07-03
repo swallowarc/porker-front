@@ -123,7 +123,7 @@ class _SelectableCards extends HookWidget {
           (e) => Expanded(
             child: Container(
               child: PokerCard(
-                  () => controller.voting(context, e), e, true, 50 * i++, "", e == controller.selectedPoint()),
+                  () => controller.voting(context, e), e, true, 40 * i++, "", e == controller.selectedPoint()),
               height: 100,
             ),
           ),

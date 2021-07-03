@@ -28,7 +28,7 @@ class LoginController extends StateNotifier<LoginControllerState> {
 
   Future<void> setPreviousLoginID() async {
     final status = await _login.previousLogin();
-    loginIDController.text = status.loginID!;
+    loginIDController.text = status.loginID ?? "";
   }
 
   Future<void> login(BuildContext context) async {

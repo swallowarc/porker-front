@@ -20,6 +20,8 @@ class LoginView extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useProvider(_controllerProvider.notifier);
 
+    controller.setPreviousLoginID();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -53,7 +55,7 @@ class LoginView extends HookWidget {
                 TextFormField(
                   maxLength: 10,
                   decoration: InputDecoration(
-                    hintText: 'ゲストID',
+                    hintText: 'Guest ID',
                   ),
                   controller: controller.loginIDController,
                   validator: (value) {

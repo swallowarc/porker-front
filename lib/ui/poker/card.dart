@@ -131,12 +131,12 @@ class _PokerCardState extends State<PokerCard> with TickerProviderStateMixin {
 
   Widget? _cardImage() {
     if (!widget._isOpen) {
-      final int imageID = widget._loginID.hashCode % 36; // num of latest image no + 1.
+      final int imageID = widget._loginID.hashCode % 33; // num of latest image no + 1.
       return Container(
         child: ClipRRect(
           child: Image(
             fit: BoxFit.scaleDown,
-            image: AssetImage(sprintf("images/card-%02d.png", [imageID])),
+            image: AssetImage(sprintf("images/card-%05d.png", [imageID])),
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
