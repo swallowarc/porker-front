@@ -88,7 +88,7 @@ class PorkerService extends StateNotifier<PokerSituation> {
   Future<void> leaveRoom(String loginID, roomID) async {
     _status = false;
     if (_stream != null) {
-      _stream!.cancel();
+      // _stream!.cancel();
     }
 
     _storageRepo.deleteEnterRoomID();

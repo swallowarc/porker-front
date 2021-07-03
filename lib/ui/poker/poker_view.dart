@@ -38,10 +38,13 @@ class PokerView extends HookWidget {
     final controller = useProvider(_controllerProvider.notifier);
     final state = useProvider(_controllerProvider);
 
+    final isVoter = controller.isVoter();
+    final isStateTurnDown = state.roomState == RoomState.ROOM_STATE_TURN_DOWN;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Center(child: Text(sprintf("Porker [room id: %s]", [state.roomID]))),
+        title: Center(child: Text(sprintf("Porker [Room ID: %s]", [state.roomID]))),
         actions: [
           PopupMenuButton<int>(
             itemBuilder: (context) {
@@ -80,6 +83,13 @@ class PokerView extends HookWidget {
           child: _buildView(context, state),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: isStateTurnDown ? (isVoter ? Colors.green : Colors.pinkAccent) : Colors.grey,
+        onPressed: () => controller.toggleNotVote(context),
+        tooltip: 'voter <=> no voter',
+        icon: isVoter ? Icon(Icons.mark_email_read) : null,
+        label: isVoter ? const Text('Voter') : const Text('Not voter'),
+      ),
     );
   }
 
@@ -89,8 +99,8 @@ class PokerView extends HookWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SelectableCards(),
           _FieldCards(),
+          _SelectableCards(),
           _FieldButtons(),
         ],
       ),
@@ -103,13 +113,17 @@ class _SelectableCards extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useProvider(_controllerProvider.notifier);
 
+    if (!controller.isVoter()) {
+      return Container();
+    }
+
     var i = 0;
     final List<Widget> cards = _selectablePoints
         .map(
           (e) => Expanded(
             child: Container(
               child: PokerCard(
-                  () => controller.voting(context, e), e, true, 80 * i++, "", e == controller.selectedPoint()),
+                  () => controller.voting(context, e), e, true, 50 * i++, "", e == controller.selectedPoint()),
               height: 100,
             ),
           ),
@@ -136,6 +150,7 @@ class _FieldCards extends HookWidget {
     final state = useProvider(_controllerProvider);
 
     final List<Widget> cards = state.ballots
+        .where((e) => e.point != Point.NOT_VOTE)
         .map(
           (e) => Expanded(
             child: Column(
@@ -177,11 +192,11 @@ class _FieldButtons extends HookWidget {
 
     return Center(
       child: Container(
+        width: 400,
         alignment: Alignment.center,
         padding: EdgeInsets.only(top: 30),
-        width: 330,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
               width: 150,

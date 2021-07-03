@@ -29,7 +29,7 @@ class RoomController extends StateNotifier<RoomControllerState> {
   Future<void> createRoom(BuildContext context) async {
     final loginID = await _loginSvc.loginID();
     if (loginID == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('正しくログインできていません')));
+      Navigator.of(context).pushNamedAndRemoveUntil("/", (_) => false);
       return;
     }
 
@@ -45,7 +45,7 @@ class RoomController extends StateNotifier<RoomControllerState> {
   Future<void> enterRoom(BuildContext context) async {
     final loginID = await _loginSvc.loginID();
     if (loginID == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('正しくログインできていません')));
+      Navigator.of(context).pushNamedAndRemoveUntil("/", (_) => false);
       return;
     }
 

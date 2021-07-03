@@ -88,6 +88,25 @@ class PokerController extends StateNotifier<PokerControllerState> {
     _porkerSvc.voting(loginID, state.roomID, point);
   }
 
+  bool isVoter() {
+    final myPoint = selectedPoint();
+    return myPoint != Point.NOT_VOTE;
+  }
+
+  Future<void> toggleNotVote(BuildContext context) async {
+    if (state.roomState != RoomState.ROOM_STATE_TURN_DOWN) {
+      return;
+    }
+
+    final myPoint = selectedPoint();
+    if (myPoint == Point.NOT_VOTE) {
+      voting(context, Point.POINT_UNKNOWN);
+      return;
+    }
+
+    voting(context, Point.NOT_VOTE);
+  }
+
   Future<void> voteCounting(BuildContext context) async {
     if (state.roomState != RoomState.ROOM_STATE_TURN_DOWN) {
       return;
