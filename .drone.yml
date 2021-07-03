@@ -36,8 +36,8 @@ steps:
         - BACKEND_URI
     when:
       branch:
+        - dev
         - main
         - feature/*
       event:
-        - push
         - tag
