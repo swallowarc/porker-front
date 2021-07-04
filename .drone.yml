@@ -46,7 +46,7 @@ steps:
     environment:
       GITHUB_KEY:
         from_secret: GITHUB_KEY
-      BACKEND_URI_GKE:
+      BACKEND_URI:
         from_secret: BACKEND_URI_GKE
     settings:
       mtu: 1450
@@ -60,7 +60,7 @@ steps:
         - ${DRONE_TAG}_gke
       build_args_from_env:
         - GITHUB_KEY
-        - BACKEND_URI_GKE
+        - BACKEND_URI
     when:
       branch:
         - dev
