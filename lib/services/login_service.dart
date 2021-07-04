@@ -27,6 +27,10 @@ class LoginService extends StateNotifier<LoginStatus> {
 
   Future<String> login(String id) async {
     final status = await _storageRepo.getLoginStatus();
+    if (id != status.loginID) {
+      status.sessionID = "";
+    }
+
     status.loginID = id;
 
     try {

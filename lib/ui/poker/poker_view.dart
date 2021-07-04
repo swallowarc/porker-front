@@ -86,8 +86,8 @@ class PokerView extends HookWidget {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: isStateTurnDown ? (isVoter ? Colors.green : Colors.pinkAccent) : Colors.grey,
         onPressed: () => controller.toggleNotVote(context),
-        tooltip: 'voter <=> no voter',
-        icon: isVoter ? Icon(Icons.mark_email_read) : null,
+        tooltip: 'Voter <=> No voter',
+        icon: isVoter ? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank),
         label: isVoter ? const Text('Voter') : const Text('Not voter'),
       ),
     );
