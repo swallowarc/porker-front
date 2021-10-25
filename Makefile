@@ -12,7 +12,8 @@ DOCKER_REGISTRY = swallowarc/porker-front
 .PHONY: build/release build/flutter-builder generate test docker-login
 build/release:
 	flutter pub get
-	flutter build web --release --dart-define=BACKEND_URI=$(BACKEND_URI)
+	#flutter build web --release --dart-define=BACKEND_URI=$(BACKEND_URI)
+	flutter build web --release
 
 docker/build:
 	docker build -t $(DOCKER_REGISTRY) .

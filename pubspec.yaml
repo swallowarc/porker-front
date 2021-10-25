@@ -30,7 +30,7 @@ dependencies:
   grpc: ^3.0.0
   porker:
     git:
-      url: ssh://git@github.com/swallowarc/porker-proto.git
+      url: https://git@github.com/swallowarc/porker-proto.git
       ref: dev
   logger: ^1.0.0
   retry: ^3.1.0

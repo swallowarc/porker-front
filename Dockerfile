@@ -2,14 +2,13 @@
 FROM swallowarc/flutter-builder:latest AS build-env
 
 # Set Environment Variable
-ARG GITHUB_KEY
 ARG BACKEND_URI
 
 # Copy files to container and build
 RUN mkdir -p /app/
 COPY . /app/
 WORKDIR /app/
-RUN make build
+RUN make build/release
 
 # Stage 2 - Create the run-time image
 FROM nginx:stable-alpine
