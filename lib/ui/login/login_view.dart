@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:porker_front/providers.dart';
 import 'package:porker_front/ui/login/login_controller.dart';
 
 final StateNotifierProvider<LoginController, LoginControllerState> _controllerProvider =
-    StateNotifierProvider((ref) => LoginController(ref.watch(loginServiceProvider.notifier)));
+    StateNotifierProvider<LoginController, LoginControllerState>(
+        (ref) => LoginController(ref.watch(loginServiceProvider.notifier)));
 
-class LoginView extends HookWidget {
+class LoginView extends HookConsumerWidget {
   final _formKey = GlobalKey<FormState>();
+  final Map<String, String> _queryParameters;
 
-  LoginView(BuildContext context, Map<String, String> queryParameters) {
-    final roomID = queryParameters["room_id"] ?? "";
-    final controller = context.read(_controllerProvider.notifier);
-    controller.roomID = roomID;
-  }
+  LoginView(BuildContext context, Map<String, String> queryParameters) : _queryParameters = queryParameters;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useProvider(_controllerProvider.notifier);
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(_controllerProvider.notifier);
+    final roomID = _queryParameters["room_id"];
+    if (roomID != null) {
+      controller.roomID = roomID;
+    }
     controller.setPreviousLoginID();
 
     return Scaffold(

@@ -4,15 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:porker_front/providers.dart';
 import 'package:porker_front/ui/room/room_controller.dart';
 
-final StateNotifierProvider<RoomController, RoomControllerState> _controllerProvider = StateNotifierProvider(
+final StateNotifierProvider<RoomController, RoomControllerState> _controllerProvider = StateNotifierProvider<RoomController, RoomControllerState>(
     (ref) => RoomController(ref.read(porkerServiceProvider.notifier), ref.read(loginServiceProvider.notifier)));
 
-class RoomView extends HookWidget {
+class RoomView extends HookConsumerWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useProvider(_controllerProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(_controllerProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(

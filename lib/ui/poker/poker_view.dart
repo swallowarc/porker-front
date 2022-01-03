@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:porker/porker.dart';
 import 'package:porker_front/providers.dart';
@@ -24,19 +23,21 @@ const List<Point> _selectablePoints = [
   Point.POINT_QUESTION,
 ];
 
-final StateNotifierProvider<PokerController, PokerControllerState> _controllerProvider = StateNotifierProvider(
-    (ref) => PokerController(ref.read(porkerServiceProvider.notifier), ref.read(loginServiceProvider.notifier)));
+final StateNotifierProvider<PokerController, PokerControllerState> _controllerProvider =
+    StateNotifierProvider<PokerController, PokerControllerState>(
+        (ref) => PokerController(ref.read(porkerServiceProvider.notifier), ref.read(loginServiceProvider.notifier)));
 
-class PokerView extends HookWidget {
-  PokerView(BuildContext context, Map<String, String> queryParameters) {
-    final controller = context.read(_controllerProvider.notifier);
-    controller.subscribe(context, queryParameters["room_id"]);
-  }
+class PokerView extends HookConsumerWidget {
+  final Map<String, String> _queryParameters;
+
+  PokerView(BuildContext context, Map<String, String> queryParameters) : _queryParameters = queryParameters;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useProvider(_controllerProvider.notifier);
-    final state = useProvider(_controllerProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(_controllerProvider.notifier);
+    controller.subscribe(context, _queryParameters["room_id"]);
+
+    final state = ref.watch(_controllerProvider);
 
     final isVoter = controller.isVoter();
     final isStateTurnDown = state.roomState == RoomState.ROOM_STATE_TURN_DOWN;
@@ -108,10 +109,10 @@ class PokerView extends HookWidget {
   }
 }
 
-class _SelectableCards extends HookWidget {
+class _SelectableCards extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final controller = useProvider(_controllerProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(_controllerProvider.notifier);
 
     if (!controller.isVoter()) {
       return Container();
@@ -144,10 +145,10 @@ class _SelectableCards extends HookWidget {
   }
 }
 
-class _FieldCards extends HookWidget {
+class _FieldCards extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final state = useProvider(_controllerProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(_controllerProvider);
 
     final List<Widget> cards = state.ballots
         .where((e) => e.point != Point.NOT_VOTE)
@@ -181,11 +182,11 @@ class _FieldCards extends HookWidget {
   }
 }
 
-class _FieldButtons extends HookWidget {
+class _FieldButtons extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final state = useProvider(_controllerProvider);
-    final controller = useProvider(_controllerProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(_controllerProvider);
+    final controller = ref.watch(_controllerProvider.notifier);
 
     final openable = state.roomState == RoomState.ROOM_STATE_TURN_DOWN &&
         state.ballots.where((e) => ![Point.POINT_UNKNOWN, Point.NOT_VOTE].contains(e.point)).length > 0;

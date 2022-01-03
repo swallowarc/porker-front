@@ -39,6 +39,10 @@ class PokerController extends StateNotifier<PokerControllerState> {
         );
 
   Future<void> subscribe(BuildContext context, String? roomID) async {
+    if (_rmListener != null) {
+      return;
+    }
+
     final loginID = await _loginSvc.loginID();
     if (loginID == null) {
       Navigator.of(context).pushNamedAndRemoveUntil(sprintf("/?room_id=%s", [roomID]), (_) => false);
