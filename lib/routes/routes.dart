@@ -17,7 +17,7 @@ class RouteConfiguration {
   static List<Path> paths = [
     Path("/", (context, queryParameters) => LoginView(context, queryParameters)),
     Path("/room", (context, queryParameters) => RoomView()),
-    Path("/poker", (context, queryParameters) => PokerView(context, queryParameters))
+    Path("/poker", (context, queryParameters) => PokerView(context))
   ];
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {

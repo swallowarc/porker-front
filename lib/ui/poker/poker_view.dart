@@ -28,16 +28,18 @@ final StateNotifierProvider<PokerController, PokerControllerState> _controllerPr
         (ref) => PokerController(ref.read(porkerServiceProvider.notifier), ref.read(loginServiceProvider.notifier)));
 
 class PokerView extends HookConsumerWidget {
-  final Map<String, String> _queryParameters;
-
-  PokerView(BuildContext context, Map<String, String> queryParameters) : _queryParameters = queryParameters;
+  PokerView(BuildContext context);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(_controllerProvider.notifier);
-    controller.subscribe(context, _queryParameters["room_id"]);
-
     final state = ref.watch(_controllerProvider);
+
+    final paths = Uri.base.toString().split('?');
+    if (paths.length > 1) {
+      final queryParameters = Uri.splitQueryString(paths[1]);
+      controller.subscribe(context, queryParameters["room_id"]);
+    }
 
     final isVoter = controller.isVoter();
     final isStateTurnDown = state.roomState == RoomState.ROOM_STATE_TURN_DOWN;
