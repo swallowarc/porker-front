@@ -1,13 +1,9 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:porker_front/routes/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   runApp(
     ProviderScope(
@@ -23,9 +19,6 @@ void main() {
         ),
         initialRoute: '/',
         onGenerateRoute: RouteConfiguration.onGenerateRoute,
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
       ),
     ),
   );
