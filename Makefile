@@ -18,7 +18,7 @@ build/release:
 docker/build:
 	docker build -t $(DOCKER_REGISTRY) .
 
-docker/push: docker-login
+docker/push:
 	docker push $(DOCKER_REGISTRY)
 
 generate:
@@ -26,6 +26,3 @@ generate:
 
 test:
 	flutter test
-
-docker-login:
-	docker login core.harbor.swallowarc.work -u $(DOCKER_USER) -p $(DOCKER_PASS)
